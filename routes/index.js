@@ -11,5 +11,7 @@ router.get('/users/login', userController.login);
 router.get('/users/register', userController.register);
 router.get('/post/add', postController.add);
 router.post('/post/add', postController.addAction); // recebimento da ação
+router.get('/post/:slug/edit', postController.edit); // Editar um registro
+router.post('/post/:slug/edit', postController.editAction); // Salvar um regitro editado
 
 module.exports = router;

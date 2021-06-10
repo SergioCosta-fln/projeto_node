@@ -20,3 +20,32 @@ exports.addAction = async (req, res) => {
 
     res.redirect('/');
 };
+
+exports.edit = async (req, res) => {
+
+    // 1. Pegar as informações do registro que será editado
+    const post = await Post.findOne({ slug:req.params.slug });
+
+    // 2. Carregar o formulário de edição
+    res.render('postEdit', { post:post });
+  
+};
+
+exports.editAction = async (req, res) => {
+
+    // Procurar o item enviado -  Pegar os dados e atualizar
+    const post = await Post.findOneAndUpdate(
+        { slug:req.params.slug },
+        req.body,
+        { 
+            new:true,   // Retornar NOVO item atualizado
+            runValidators:true  // Força a validação dos campos de acordo com o modelo
+        }
+    );
+   
+    // Mostrar a mensagem de sucesso
+    req.flash('success', 'Post atualizado com sucesso!')
+
+    // Redirecionar para a HOME
+    res.redirect('/');
+};
