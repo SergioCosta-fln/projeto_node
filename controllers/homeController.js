@@ -8,20 +8,26 @@ exports.userMiddleware = (req, res, next) => {
     next();
 };
 
+
 exports.index = async (req, res) => {
-    let obj = {
-        pageTitle:'HOME'
+    let responseJson = {
+        pageTitle:'HOME',
+        post: []
     }
-    res.render('home', obj);
-};
+
+    const posts = await Post.find();
+    responseJson.posts = posts;
+
+    res.render('home', responseJson);
+}
 
 /*
-exports.indexOld = (req, res) => {
+exports.index = (req, res) => {
 
     let obj = {
         pageTitle:'HOME',
         userInfo: req.userInfo
     }; 
     res.render('home', obj);
-};
+}
 */

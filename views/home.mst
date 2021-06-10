@@ -2,4 +2,8 @@
 
 <h1>Página Home</h1>
 
-<p> USUARIO LOGADO: {{userInfo.name}}</p>
+{{#posts}}
+    <h3><a href="/post/{{slug}}">{{title}}</a></h3>
+    <p>{{body}}</p>
+    <hr/>
+{{/posts}}
