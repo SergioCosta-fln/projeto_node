@@ -3,28 +3,35 @@ const mustache = require('mustache-express');   // Template visual
 const router = require('./routes/index');       // Rotas
 const helpers = require('./helpers');
 const errorHandler = require('./handlers/errorHandler');
-//const cookieParser = require('cookie-parse');
+const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const flash = require('express-flash');
 
 // Configurações
 const app = express();
 
-// helpers antes da definição das rotas
-app.use((req, res, next) => {
-    res.locals.h = helpers;
-    next();
-});
-
 app.use(express.json());  // Trata agora as req via POST
 app.use(express.urlencoded({extended:true}));
 
-//app.use(cookieParser(process.env.SECRET));
+//  Hbailitando o Cookie
+app.use(cookieParser(process.env.SECRET));
+
+// Habilitando a seção
 app.use(session({
     secret:process.env.SECRET,
     resave:false,
     saveUninitialized:false
 }));
+
+// Habilitando o flash
+app.use(flash());
+
+// helpers antes da definição das rotas
+app.use((req, res, next) => {
+    res.locals.h = helpers;
+    res.locals.flashes = req.flash();
+    next();
+});
 
 app.use('/', router);       // Definição das rotas 
 
