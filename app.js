@@ -7,6 +7,10 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const flash = require('express-flash');
 
+// Controle de acesso
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+
 // Configurações
 const app = express();
 
@@ -34,6 +38,16 @@ app.use((req, res, next) => {
     res.locals.flashes = req.flash();
     next();
 });
+
+// Inicialzar o passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Chamar o Model de User
+const User = require('./models/User');
+passport.use(new LocalStrategy(User.authenticate()));
+passaport.serilizeUser(User.serilizeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // Antes das routas buscar o css
 app.use('/', router);       // Definição das rotas 
