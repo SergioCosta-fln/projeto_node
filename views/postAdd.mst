@@ -18,7 +18,8 @@
     <br/>
 
     <label>
-        Tags:
+        Tags: <small>(Separar as tags por vírgula.)</small>
+        <input type="text" name="tags" />
     </label>
 
     <br/>
