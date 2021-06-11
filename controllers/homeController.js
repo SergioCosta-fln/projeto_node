@@ -12,8 +12,15 @@ exports.userMiddleware = (req, res, next) => {
 exports.index = async (req, res) => {
     let responseJson = {
         pageTitle:'HOME',
-        post: []
+        post: [],
+        tags: []
     }
+
+    // Post - nosso Model
+    const tags = await Post.getTagsList();
+    responseJson.tags = tags;
+
+    console.log(tags);
 
     const posts = await Post.find();
     responseJson.posts = posts;
