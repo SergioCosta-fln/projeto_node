@@ -1,7 +1,14 @@
 {{> header}}
 <h2>Adcionar Post</h2>
 
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
+
+    <label>
+        Imagem:
+        <input type="file" name="photo" />
+    </label>
+
+    <br/>
 
     <label>
         Ttitulo:
