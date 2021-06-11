@@ -32,16 +32,19 @@ app.use(session({
 // Habilitando o flash
 app.use(flash());
 
+// Inicialzar o passport
+app.use(passport.initialize());
+app.use(passport.session());
+
 // helpers antes da definição das rotas
 app.use((req, res, next) => {
     res.locals.h = helpers;
     res.locals.flashes = req.flash();
+    res.locals.user = req.user;
     next();
 });
 
-// Inicialzar o passport
-app.use(passport.initialize());
-app.use(passport.session());
+
 
 // Chamar o Model de User
 const User = require('./models/User');

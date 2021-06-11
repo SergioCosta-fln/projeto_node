@@ -18,6 +18,7 @@ exports.index = async (req, res) => {
         tag: ''
     };
 
+    //console.log(req.user);
     // Busca as tags de acordo com a que foi selecionada
     responseJson.tag = req.query.t;
     const postFilter = (typeof responseJson.tag != 'undefined') ? {tags:responseJson.tag}: {};
