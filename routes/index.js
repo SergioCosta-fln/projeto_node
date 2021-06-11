@@ -4,6 +4,7 @@ const homeController = require('../controllers/homeController');
 const userController = require('../controllers/userController');
 const postController = require('../controllers/postController');
 const imageMiddleware = require('../middlewares/imageMiddleware');
+const authMiddleware = require('../middlewares/authMiddleware');
 
 // Rotas
 const router = express.Router();
@@ -16,15 +17,23 @@ router.get('/users/register', userController.register);
 router.post('/users/register', userController.registerAction);
 
 
-router.get('/post/add', postController.add);
+router.get('/post/add', 
+    authMiddleware.isLogged, 
+    postController.add
+);
 router.post('/post/add',            // recebimento da ação
+    authMiddleware.isLogged,
     imageMiddleware.upload,
     imageMiddleware.resize,
     postController.addAction
 ); 
 
-router.get('/post/:slug/edit', postController.edit); // Editar um registro
+router.get('/post/:slug/edit', 
+    authMiddleware.isLogged,
+    postController.edit
+); // Editar um registro
 router.post('/post/:slug/edit', 
+    authMiddleware.isLogged,
     imageMiddleware.upload,
     imageMiddleware.resize,
     postController.editAction
