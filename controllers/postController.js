@@ -36,6 +36,7 @@ exports.edit = async (req, res) => {
 exports.editAction = async (req, res) => {
 
     req.body.slug = slug(req.body.title, {lower:true});
+    req.body.tags = req.body.tags.split(',').map(tag=>tag.trim());
 
     // Procurar o item enviado -  Pegar os dados e atualizar
     try {
