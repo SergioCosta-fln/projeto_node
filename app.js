@@ -46,7 +46,7 @@ app.use(passport.session());
 // Chamar o Model de User
 const User = require('./models/User');
 passport.use(new LocalStrategy(User.authenticate()));
-passaport.serilizeUser(User.serilizeUser());
+passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // Antes das routas buscar o css
