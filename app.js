@@ -38,9 +38,20 @@ app.use(passport.session());
 
 // helpers antes da definição das rotas
 app.use((req, res, next) => {
-    res.locals.h = helpers;
+    //res.locals.h = helpers;
+    res.locals.h = { ...helpers };         // Clono para não perder a sua referência. Estou passando os valores do helpers para o H
     res.locals.flashes = req.flash();
     res.locals.user = req.user;
+
+    // Filtro no menu para validar acesso do usuário
+    if(req.isAuthenticated()) {
+        // Filtrar menu para Logged
+        res.locals.h.menu = res.locals.h.menu.filter(i=>i.logged);
+    } else {
+        // Filtar menu para guest
+        res.locals.h.menu = res.locals.h.menu.filter(i=>i.guest);
+    }
+
     next();
 });
 
