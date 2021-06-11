@@ -1,3 +1,4 @@
+const { response, query } = require('express');
 const mongoose = require('mongoose');
 const Post = mongoose.model('Post');
 
@@ -13,11 +14,22 @@ exports.index = async (req, res) => {
     let responseJson = {
         pageTitle:'HOME',
         post: [],
-        tags: []
+        tags: [],
+        tag: ''
     }
+
+    // Busca as tags de acordo com a que foi selecionada
+    responseJson.tag = req.query.t;
 
     // Post - nosso Model
     const tags = await Post.getTagsList();
+
+    for(let i in tags) {
+        if(tags[i]._id == responseJson.tag) {
+            tags[i].class = "selected";
+        }
+    }
+    
     responseJson.tags = tags;
 
     
