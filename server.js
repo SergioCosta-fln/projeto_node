@@ -5,7 +5,8 @@ require('dotenv').config({path: 'variables.env'});
 // Conectar ao banco
 mongoose.connect(process.env.DATABASE, { 
     useNewUrlParser: true, 
-    useUnifiedTopology: true 
+    useUnifiedTopology: true,
+    useFindAndModify: false
 });
 mongoose.Promise = global.Promise;
 mongoose.connection.on('error', (error) => {
