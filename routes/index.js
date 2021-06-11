@@ -19,7 +19,11 @@ router.post('/post/add',            // recebimento da ação
 ); 
 
 router.get('/post/:slug/edit', postController.edit); // Editar um registro
-router.post('/post/:slug/edit', postController.editAction); // Salvar um regitro editado
+router.post('/post/:slug/edit', 
+    imageMiddleware.upload,
+    imageMiddleware.resize,
+    postController.editAction
+); // Salvar um regitro editado
 
 router.get('/post/:slug', postController.view);
 
