@@ -20,7 +20,7 @@ exports.index = async (req, res) => {
     const tags = await Post.getTagsList();
     responseJson.tags = tags;
 
-    console.log(tags);
+    
 
     const posts = await Post.find();
     responseJson.posts = posts;
