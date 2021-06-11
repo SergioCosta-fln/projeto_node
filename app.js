@@ -13,7 +13,9 @@ const app = express();
 app.use(express.json());  // Trata agora as req via POST
 app.use(express.urlencoded({extended:true}));
 
-//  Hbailitando o Cookie
+app.use(express.static(__dirname+'/public'));
+
+//  Habilitando o Cookie
 app.use(cookieParser(process.env.SECRET));
 
 // Habilitando a seção
@@ -33,6 +35,7 @@ app.use((req, res, next) => {
     next();
 });
 
+// Antes das routas buscar o css
 app.use('/', router);       // Definição das rotas 
 
 app.use(errorHandler.notFound);
