@@ -36,4 +36,12 @@ postSchema.pre('save', async function(next) {
     next();
 });
 
+// Pegar a quantidade de tags dos posts
+postSchema.statics.getTagsList = function() {
+
+    return this.aggregate([
+        { $unwind:'$tags' }
+    ]);
+}
+
 module.exports = mongoose.model('Post', postSchema);
