@@ -16,14 +16,34 @@ exports.index = async (req, res) => {
         post: [],
         tags: [],
         tag: ''
-    }
+    };
 
     // Busca as tags de acordo com a que foi selecionada
     responseJson.tag = req.query.t;
+    const postFilter = (typeof responseJson.tag != 'undefined') ? {tags:responseJson.tag}: {};
 
     // Post - nosso Model
+    /*
     const tags = await Post.getTagsList();
+    const posts = await Post.find(postFilter);
+    */
 
+    const tagsPromise = Post.getTagsList();
+    const postsPromise = Post.find(postFilter);
+
+    // Cria um grupo de Promises
+    /*
+    const result = await Promise.all([
+        tagsPromise,
+        postsPromise
+    ]);
+
+    const tags = result[0];
+    const posts = result[1];
+    */
+
+    const [tags, posts] = await Promise.all([tagsPromise, postsPromise]);
+    
     for(let i in tags) {
         if(tags[i]._id == responseJson.tag) {
             tags[i].class = "selected";
@@ -34,7 +54,6 @@ exports.index = async (req, res) => {
 
     
 
-    const posts = await Post.find();
     responseJson.posts = posts;
 
     res.render('home', responseJson);
