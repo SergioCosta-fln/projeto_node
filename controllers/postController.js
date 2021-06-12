@@ -17,6 +17,7 @@ exports.add = (req, res) => {
 exports.addAction = async (req, res) => {
     
     req.body.tags = req.body.tags.split(',').map(tag=>tag.trim());
+    req.body.author = req.user._id;
     const post = new Post(req.body);
 
     try{

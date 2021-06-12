@@ -30,7 +30,8 @@ exports.index = async (req, res) => {
     */
 
     const tagsPromise = Post.getTagsList();
-    const postsPromise = Post.find(postFilter);
+    //const postsPromise = Post.find(postFilter);
+    const postsPromise = Post.findPosts(postFilter);    // Buscar o nome do usuário logado
 
     // Cria um grupo de Promises
     /*
