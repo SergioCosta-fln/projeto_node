@@ -23,3 +23,28 @@
     </label>    
 
 </form>
+
+<hr/>
+
+
+<form method="POST" action="/profile/password">
+
+    <label>
+        Nova Senha
+        <input type="password" name="password""/>
+    </label>
+
+    <br/>
+
+    <label>
+        Confirmar Nova Senha
+        <input type="password" name="password-confirm""/>
+    </label>
+
+    <br/>
+
+    <label>
+        <input type="submit" value="Salvar" />
+    </label>    
+
+</form>

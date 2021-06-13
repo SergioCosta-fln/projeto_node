@@ -8,3 +8,22 @@ module.exports.isLogged = (req, res, next) => {
 
     next();
 };
+
+exports.changePassword = (req, res) => {
+    // 1. Confirmar que as senhas batem.
+    if (req.body.password != req.body['password-confirm']) {
+        req.flash('error', 'Senha não conferem!');
+        res.redirect('/profile');
+        return;
+    }
+
+    // 2 Procurar o usuário e trocar a senha dele.
+    req.user.setPassword(req.body.password, async () => {
+        await req.user.save();
+
+        req.flash('success', 'Senha alterada com sucesso!');
+        res.redirect('/');
+    });
+    
+    // 3. Redirecionar para a HOME
+};
