@@ -18,7 +18,11 @@ const postSchema = new mongoose.Schema({
         trim:true
     },
     tags:[String],
-    author:ObjectId
+    author:{
+        type:ObjectId,
+        ref:'User'
+    }
+    // author:ObjectId
 });
 
 postSchema.pre('save', async function(next) {
@@ -55,6 +59,8 @@ postSchema.statics.getTagsList = function() {
 
 postSchema.statics.findPosts = function(filters = {}) {
     
+    return this.find(filters).populate('author');
+    /*
     return this.aggregate([
         { $match:filters } ,
         { $lookup:{
@@ -70,6 +76,7 @@ postSchema.statics.findPosts = function(filters = {}) {
             'author':{ $arrayElemAt:[ '$author', 0 ] }
         } }
     ]);
+    */
 }
 
 module.exports = mongoose.model('Post', postSchema);
