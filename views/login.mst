@@ -21,4 +21,7 @@
     <label>
         <input type="submit" value="Logar" />
     </label>
+
 </form>
+
+<a href="/users/forget">Esqueci minha senha</a>
